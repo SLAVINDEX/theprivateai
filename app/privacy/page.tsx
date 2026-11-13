@@ -1,97 +1,26 @@
-"use client"
+import Link from "next/link"
+import { Footer } from "@/components/footer"
+import { Navigation } from "@/components/navigation"
 
-import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
+const recipient = "ThePrivateAI@protonmail.com"
 
 export default function PrivacyPage() {
-  return (
-    <main className="min-h-screen bg-background">
-      <Navigation />
-      
-      <section className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-8">Privacy Policy</h1>
-          
-          <div className="prose prose-invert max-w-none space-y-8">
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">Our Commitment to Privacy</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                At The Private AI, privacy is not just a policy—it is the foundation of everything we build. 
-                We believe that your data belongs to you, and our systems are designed to ensure that it stays that way.
-              </p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">Data Collection</h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                We collect only the information necessary to provide our services:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Contact information provided through our forms (name, email, phone)</li>
-                <li>Company information for business inquiries</li>
-                <li>Technical requirements for custom builds</li>
-                <li>Communication records for support purposes</li>
-              </ul>
-            </div>
-
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">How We Use Your Data</h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Your information is used exclusively to:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Respond to your inquiries and provide consultations</li>
-                <li>Process orders and deliver services</li>
-                <li>Provide technical support</li>
-                <li>Send important updates about your services</li>
-              </ul>
-            </div>
-
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">Data Security</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                All data transmitted to us is encrypted using industry-standard TLS protocols. 
-                We do not sell, trade, or share your personal information with third parties for marketing purposes.
-                Our internal systems follow the same air-gapped principles we apply to our client solutions.
-              </p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">Your AI System Data</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                When you purchase a Private AI system, your data stays entirely on your premises. 
-                We have no access to, visibility into, or ability to retrieve any data processed by your system. 
-                This is by design—your sovereignty is absolute.
-              </p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">GDPR Compliance</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                We are fully compliant with the General Data Protection Regulation (GDPR). 
-                You have the right to access, correct, or delete your personal data at any time. 
-                Contact us at ThePrivateAI@protonmail.com to exercise these rights.
-              </p>
-            </div>
-
-            <div className="glass-card rounded-2xl p-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">Contact</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                For privacy-related inquiries, please contact our Data Protection Officer at:<br />
-                <a href="mailto:ThePrivateAI@protonmail.com" className="text-primary hover:underline">
-                  ThePrivateAI@protonmail.com
-                </a>
-              </p>
-            </div>
-
-            <p className="text-sm text-muted-foreground">
-              Last updated: January 2026
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  )
+  return <main className="private-home-page min-h-screen">
+    <Navigation />
+    <section className="px-5 pb-20 pt-36 sm:px-10 sm:pb-28 sm:pt-44 lg:px-16"><div className="mx-auto max-w-[960px]">
+      <p className="eyebrow-dark">THEPRIVATEAI · WEBSITE PRIVACY</p>
+      <h1 className="mt-5 max-w-3xl font-serif text-5xl leading-[1.03] tracking-[-0.04em] text-[#242720] sm:text-6xl">A clear account of what this site does.</h1>
+      <p className="mt-6 max-w-2xl text-sm leading-7 text-[#65675e]">This overview describes the current website experience. It is not a compliance certification or legal advice. The business operating the site should confirm the final controller details, retention periods and applicable notices before production use.</p>
+      <div className="privacy-content mt-10">
+        <section><h2>Contact and booking requests</h2><p>The contact and consultation forms in this rebuild do not submit details to a website database or email API. Choosing “Prepare email draft” opens your device’s email application with the details you entered. You can review, change, send or discard that draft. No appointment is booked until it is confirmed directly.</p></section>
+        <section><h2>Private-home configurator</h2><p>Selections in the concept configurator are held in the page while you use it. They are not saved to an account or a project database. If you choose to prepare an enquiry, the selected brief is placed in a mail draft. The 3D model is illustrative and does not connect to, observe or control a real home.</p></section>
+        <section><h2>Hosting and technical data</h2><p>The site is hosted on Vercel, which may process technical request information as part of hosting. This website does not use independent analytics or connect to email delivery, calendars, databases, home devices, AI providers or home-security services. No household hardware is controlled by this concept site.</p><p>When you choose to send an email, your email provider and the recipient process that message under their own terms. Do not include passwords, access codes, private documents or information you do not want to send by email.</p></section>
+        <section><h2>Security and legal boundaries</h2><p>Website transport security and provider logging depend on the deployed configuration. This overview does not promise that a system is “air-gapped,” unhackable or compliant with every jurisdiction. Any real home-security, camera, access-control, radio, robotics or personal-data design requires a site-specific technical and legal review, including the rights of household members, staff, guests and neighbours.</p></section>
+        <section><h2>Your questions</h2><p>For a privacy question, email <a href={`mailto:${recipient}`}>{recipient}</a>. If you have already sent an email, include enough context for the team to find it, but do not send additional sensitive information. Applicable access, correction, deletion and other rights depend on the circumstances and governing law.</p></section>
+      </div>
+      <p className="mt-8 text-xs text-[#77786f]">Last updated: 13 November 2026</p>
+      <Link href="/contact" className="contact-inline-link">Contact ThePrivateAI <span aria-hidden="true">→</span></Link>
+    </div></section>
+    <Footer />
+  </main>
 }

@@ -1,279 +1,63 @@
 "use client"
 
-import React from "react"
+import { useEffect, useState, type FormEvent } from "react"
+import Link from "next/link"
+import { ArrowLeft, CalendarDays, Clock3, Mail, Video } from "lucide-react"
+import { Footer } from "@/components/footer"
+import { Navigation } from "@/components/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
 
-import { useState } from 'react'
-import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
-import { DNABackground } from '@/components/dna-background'
-import { useLanguage } from '@/components/language-context'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { 
-  Calendar,
-  Clock,
-  Video,
-  CheckCircle,
-  Phone,
-  Users
-} from 'lucide-react'
+const recipient = "ThePrivateAI@protonmail.com"
+const meetingTypes = [
+  { value: "discovery", title: "Discovery conversation", detail: "Property, household priorities and an initial scope." },
+  { value: "technical", title: "Technical discussion", detail: "Architecture, local AI, connectivity and dependencies." },
+  { value: "concept", title: "Private-home concept", detail: "Review a property concept and questions for validation." },
+]
 
 export default function BookingPage() {
-  const { t } = useLanguage()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [meetingType, setMeetingType] = useState("discovery")
+  const [notes, setNotes] = useState("")
+  const [draftReady, setDraftReady] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    const formData = new FormData(e.currentTarget)
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      company: formData.get('company'),
-      phone: formData.get('phone'),
-      date: formData.get('date'),
-      time: formData.get('time'),
-      consultationType: formData.get('consultationType'),
-      notes: formData.get('notes'),
-    }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setNotes((params.get("notes") ?? "").slice(0, 5000))
+  }, [])
 
-    try {
-      await fetch('/api/booking', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      setIsSubmitted(true)
-    } catch (error) {
-      console.error('Error submitting booking:', error)
-    } finally {
-      setIsSubmitting(false)
-    }
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const value = (key: string) => String(formData.get(key) ?? "").trim()
+    const emailBody = [
+      `Name: ${value("name")}`,
+      `Email: ${value("email")}`,
+      `Phone: ${value("phone") || "Not provided"}`,
+      `Company: ${value("company") || "Not provided"}`,
+      `Requested consultation: ${meetingTypes.find((item) => item.value === meetingType)?.title ?? meetingType}`,
+      `Preferred date: ${value("date") || "Flexible"}`,
+      `Preferred time: ${value("time") || "Flexible"} (local time at the property)`,
+      "",
+      `Notes: ${value("notes") || "None provided"}`,
+      "",
+      "This is a request only. The appointment is not booked until confirmed directly.",
+    ].join("\n")
+    window.location.assign(`mailto:${recipient}?${new URLSearchParams({ subject: "Private home consultation request", body: emailBody }).toString()}`)
+    setDraftReady(true)
   }
 
-  const consultationTypes = [
-    {
-      icon: Phone,
-      value: 'discovery',
-      label: t('booking.form.type.discovery'),
-      description: 'Introduction to our services and your needs',
-    },
-    {
-      icon: Video,
-      value: 'technical',
-      label: t('booking.form.type.technical'),
-      description: 'Deep dive into technical specifications',
-    },
-    {
-      icon: Users,
-      value: 'demo',
-      label: t('booking.form.type.demo'),
-      description: 'Live demonstration of our AI systems',
-    },
-  ]
-
-  const timeSlots = [
-    '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-    '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
-    '16:00', '16:30', '17:00'
-  ]
-
-  return (
-    <main className="min-h-screen bg-background relative">
-      <DNABackground />
-      <Navigation />
-      
-      {/* Hero */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
-              <Calendar className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              {t('booking.title')}
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              {t('booking.subtitle')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Booking Content */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          {isSubmitted ? (
-            <div className="glass-card rounded-2xl p-12 text-center">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8">
-                <CheckCircle className="w-10 h-10 text-primary" />
-              </div>
-              <h2 className="text-3xl font-bold text-foreground mb-4">{t('booking.form.success')}</h2>
-              <p className="text-muted-foreground text-lg mb-8">
-                We have received your consultation request and will confirm your appointment within 24 hours.
-              </p>
-              <p className="text-muted-foreground">
-                A confirmation email will be sent to your address with meeting details.
-              </p>
-            </div>
-          ) : (
-            <div className="glass-card rounded-2xl p-8">
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Consultation Type */}
-                <div className="space-y-4">
-                  <Label className="text-lg font-semibold">{t('booking.form.type')}</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {consultationTypes.map((type) => {
-                      const Icon = type.icon
-                      return (
-                        <label
-                          key={type.value}
-                          className="relative cursor-pointer"
-                        >
-                          <input
-                            type="radio"
-                            name="consultationType"
-                            value={type.value}
-                            className="peer sr-only"
-                            required
-                          />
-                          <div className="p-6 rounded-xl border border-border bg-secondary/50 peer-checked:border-primary peer-checked:bg-primary/10 transition-all">
-                            <Icon className="w-8 h-8 text-primary mb-4" />
-                            <h4 className="font-semibold text-foreground mb-1">{type.label}</h4>
-                            <p className="text-xs text-muted-foreground">{type.description}</p>
-                          </div>
-                        </label>
-                      )
-                    })}
-                  </div>
-                </div>
-
-                {/* Personal Info */}
-                <div className="space-y-6">
-                  <h3 className="text-lg font-semibold text-foreground border-b border-border pb-2">Your Details</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">{t('contact.form.name')} *</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        required
-                        className="bg-secondary border-border"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">{t('contact.form.email')} *</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        className="bg-secondary border-border"
-                        placeholder="john@company.com"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="company">{t('contact.form.company')}</Label>
-                      <Input
-                        id="company"
-                        name="company"
-                        className="bg-secondary border-border"
-                        placeholder="Company Ltd"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">{t('contact.form.phone')} *</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        required
-                        className="bg-secondary border-border"
-                        placeholder="+44 7XXX XXXXXX"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Date & Time */}
-                <div className="space-y-6">
-                  <h3 className="text-lg font-semibold text-foreground border-b border-border pb-2">Preferred Schedule</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="date">{t('booking.form.date')} *</Label>
-                      <Input
-                        id="date"
-                        name="date"
-                        type="date"
-                        required
-                        className="bg-secondary border-border"
-                        min={new Date().toISOString().split('T')[0]}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="time">{t('booking.form.time')} *</Label>
-                      <Select name="time" required>
-                        <SelectTrigger className="bg-secondary border-border">
-                          <SelectValue placeholder="Select time" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timeSlots.map((slot) => (
-                            <SelectItem key={slot} value={slot}>
-                              {slot} (CET)
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Notes */}
-                <div className="space-y-2">
-                  <Label htmlFor="notes">{t('booking.form.notes')}</Label>
-                  <Textarea
-                    id="notes"
-                    name="notes"
-                    rows={4}
-                    className="bg-secondary border-border resize-none"
-                    placeholder="Any specific topics you'd like to discuss or questions you have..."
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Submitting...' : t('booking.form.submit')}
-                  <Calendar className="ml-2 w-5 h-5" />
-                </Button>
-
-                <p className="text-center text-sm text-muted-foreground">
-                  By booking a consultation, you agree to our privacy policy. Your information will only be used to arrange your appointment.
-                </p>
-              </form>
-            </div>
-          )}
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  )
+  return <main className="private-home-page min-h-screen">
+    <Navigation />
+    <section className="booking-hero px-5 pb-12 pt-36 sm:px-10 sm:pb-16 sm:pt-44 lg:px-16"><div className="mx-auto max-w-[1000px]"><Link href="/" className="contact-inline-link"><ArrowLeft aria-hidden="true" /> Return to the private home</Link><p className="eyebrow-dark mt-10">PRIVATE CONSULTATION · REQUEST ONLY</p><h1 className="mt-5 max-w-3xl font-serif text-5xl leading-[1.02] tracking-[-0.04em] text-[#242720] sm:text-6xl">Make room for a thoughtful conversation.</h1><p className="mt-6 max-w-2xl text-base leading-7 text-[#65675e]">Choose a topic and suggest a time. Your request opens as an email draft for you to review; no calendar connection is enabled and no appointment is confirmed by this page.</p></div></section>
+    <section className="booking-content px-5 pb-24 sm:px-10 lg:px-16"><div className="mx-auto max-w-[1000px]"><form onSubmit={handleSubmit} className="booking-form-card">
+      <fieldset className="booking-type-set"><legend>What would you like to discuss?</legend><div className="booking-type-grid">{meetingTypes.map((type) => <label key={type.value} className="booking-type-option"><input type="radio" name="consultationType" value={type.value} checked={meetingType === type.value} onChange={() => setMeetingType(type.value)} /><span className="booking-type-card"><span className="booking-type-icon">{type.value === "technical" ? <Video aria-hidden="true" /> : type.value === "concept" ? <CalendarDays aria-hidden="true" /> : <Mail aria-hidden="true" />}</span><strong>{type.title}</strong><small>{type.detail}</small></span></label>)}</div></fieldset>
+      <div className="contact-form-grid"><div className="contact-field"><Label htmlFor="booking-name">Name <span aria-hidden="true">*</span></Label><Input id="booking-name" name="name" autoComplete="name" required maxLength={160} placeholder="Your name" /></div><div className="contact-field"><Label htmlFor="booking-email">Email <span aria-hidden="true">*</span></Label><Input id="booking-email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder="you@example.com" /></div><div className="contact-field"><Label htmlFor="booking-phone">Phone</Label><Input id="booking-phone" name="phone" type="tel" autoComplete="tel" maxLength={60} placeholder="Optional" /></div><div className="contact-field"><Label htmlFor="booking-company">Company</Label><Input id="booking-company" name="company" autoComplete="organization" maxLength={200} placeholder="Optional" /></div><div className="contact-field"><Label htmlFor="booking-date">Preferred date</Label><span className="field-icon-wrap"><Input id="booking-date" name="date" type="date" /><CalendarDays aria-hidden="true" /></span></div><div className="contact-field"><Label htmlFor="booking-time">Preferred time · local to property</Label><span className="field-icon-wrap"><Input id="booking-time" name="time" type="time" /><Clock3 aria-hidden="true" /></span></div><div className="contact-field contact-field-full"><Label htmlFor="booking-notes">Anything else to include?</Label><Textarea id="booking-notes" name="notes" value={notes} onChange={(event) => setNotes(event.target.value)} maxLength={5000} rows={6} placeholder="Property location, priorities, constraints or questions…" /></div></div>
+      <Button type="submit" size="lg" className="contact-submit"><span>Prepare consultation request</span><Mail data-icon="inline-end" /></Button>
+      {draftReady && <p className="contact-draft-status" role="status">Your email app should open with a request draft for you to review and send. Your appointment is not booked until confirmed directly. If no draft opened, email <a href={`mailto:${recipient}`}>{recipient}</a>.</p>}
+      <p className="contact-form-disclaimer">This website does not store your details, send an email automatically, check availability or create a calendar event. You choose whether to send the draft from your email app.</p>
+    </form></div></section>
+    <Footer />
+  </main>
 }

@@ -1,45 +1,49 @@
-import React from "react"
-import type { Metadata, Viewport } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
-import { LanguageProvider } from '@/components/language-context'
+import type { Metadata, Viewport } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { LanguageProvider } from "@/components/language-context"
 
-const _inter = Inter({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: 'The Private AI | Premium Offline AI Servers & Consultancy',
-  description: 'Enterprise-grade offline AI infrastructure. Air-gapped LLM systems for regulated environments, HNW individuals, and businesses. On-prem AI solutions from £15,000 to £65,000.',
-  keywords: ['private AI', 'offline AI servers', 'enterprise AI', 'air-gapped AI', 'on-premise AI', 'A100 GPU', 'LLM infrastructure'],
-  authors: [{ name: 'The Private AI' }],
-  openGraph: {
-    title: 'The Private AI | Premium Offline AI Infrastructure',
-    description: 'Take control of your AI. Enterprise-grade offline servers from £15,000.',
-    type: 'website',
+  metadataBase: new URL("https://www.privateai.de"),
+  title: {
+    default: "Private Home Intelligence | ThePrivateAI",
+    template: "%s | ThePrivateAI",
   },
-    generator: 'v0.app'
+  description: "Explore a private-home concept combining local AI, considered architecture, resilient infrastructure and human-led property awareness.",
+  applicationName: "ThePrivateAI",
+  keywords: ["private AI", "private home intelligence", "local AI", "home infrastructure", "AI systems", "private networks"],
+  authors: [{ name: "ThePrivateAI" }],
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Private Home Intelligence | ThePrivateAI",
+    description: "A home that thinks. A system that protects. An environment you control.",
+    type: "website",
+    url: "https://www.privateai.de",
+    images: [{ url: "/images/private-home-estate.png", alt: "Architectural concept for a private, technology-aware residence" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Private Home Intelligence | ThePrivateAI",
+    description: "Explore a considered private-home technology concept.",
+    images: ["/images/private-home-estate.png"],
+  },
+  robots: { index: true, follow: true },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0a0a0f',
-  width: 'device-width',
+  themeColor: "#20231f",
+  width: "device-width",
   initialScale: 1,
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="en">
-      <body className="font-sans antialiased">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
-        <Analytics />
-      </body>
-    </html>
-  )
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en">
+    <body className={`${inter.className} antialiased`}>
+      <LanguageProvider>
+        {children}
+      </LanguageProvider>
+    </body>
+  </html>
 }

@@ -1,250 +1,65 @@
 "use client"
 
-import React from "react"
+import { useEffect, useState, type FormEvent } from "react"
+import Link from "next/link"
+import { ArrowRight, Mail, MapPin, Phone, Send } from "lucide-react"
+import { Footer } from "@/components/footer"
+import { Navigation } from "@/components/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-import { useState } from 'react'
-import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
-import { DNABackground } from '@/components/dna-background'
-import { useLanguage } from '@/components/language-context'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { 
-  MapPin, 
-  Phone, 
-  Mail,
-  Send,
-  CheckCircle,
-  Building2
-} from 'lucide-react'
+const recipient = "ThePrivateAI@protonmail.com"
 
 export default function ContactPage() {
-  const { t } = useLanguage()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [interest, setInterest] = useState("")
+  const [message, setMessage] = useState("")
+  const [draftReady, setDraftReady] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    const formData = new FormData(e.currentTarget)
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      company: formData.get('company'),
-      phone: formData.get('phone'),
-      interest: formData.get('interest'),
-      message: formData.get('message'),
-    }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setInterest(params.get("interest") === "private" ? "private" : "")
+    setMessage((params.get("message") ?? "").slice(0, 8000))
+  }, [])
 
-    // Send to email
-    try {
-      await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      setIsSubmitted(true)
-    } catch (error) {
-      console.error('Error submitting form:', error)
-    } finally {
-      setIsSubmitting(false)
-    }
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const value = (key: string) => String(formData.get(key) ?? "").trim()
+    const emailBody = [
+      `Name: ${value("name")}`,
+      `Email: ${value("email")}`,
+      `Company: ${value("company") || "Not provided"}`,
+      `Phone: ${value("phone") || "Not provided"}`,
+      `Area of interest: ${value("interest")}`,
+      "",
+      value("message"),
+    ].join("\n")
+    const subject = value("interest") === "private" ? "Private Home enquiry" : "ThePrivateAI enquiry"
+    window.location.assign(`mailto:${recipient}?${new URLSearchParams({ subject, body: emailBody }).toString()}`)
+    setDraftReady(true)
   }
 
-  return (
-    <main className="min-h-screen bg-background relative">
-      <DNABackground />
-      <Navigation />
-      
-      {/* Hero */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              {t('contact.title')}
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              {t('contact.subtitle')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Content */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Contact Info */}
-            <div className="lg:col-span-1">
-              <div className="space-y-8">
-                {/* UK Office */}
-                <div className="glass-card rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Building2 className="w-5 h-5 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground">{t('footer.address.uk')}</h3>
-                  </div>
-                  <div className="space-y-3">
-                    <a href="tel:+447537144472" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
-                      <Phone className="w-4 h-4" />
-                      <span>+44 7537 144472</span>
-                    </a>
-                    <a href="mailto:ThePrivateAI@protonmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
-                      <Mail className="w-4 h-4" />
-                      <span>ThePrivateAI@protonmail.com</span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Germany Office */}
-                <div className="glass-card rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Building2 className="w-5 h-5 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground">{t('footer.address.de')}</h3>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3 text-muted-foreground">
-                      <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                      <span>
-                        Mainzer Landstraße 341<br />
-                        60326 Frankfurt am Main
-                      </span>
-                    </div>
-                    <a href="tel:+4915292618660" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
-                      <Phone className="w-4 h-4" />
-                      <span>+49 1529 2618660</span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Additional Info */}
-                <div className="glass-card rounded-2xl p-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-4">Office Hours</h3>
-                  <div className="space-y-2 text-muted-foreground">
-                    <p>Monday - Friday: 9:00 - 18:00</p>
-                    <p>Saturday: By appointment</p>
-                    <p>Sunday: Closed</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <div className="glass-card rounded-2xl p-8">
-                {isSubmitted ? (
-                  <div className="text-center py-12">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-8 h-8 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-foreground mb-2">{t('contact.form.success')}</h3>
-                    <p className="text-muted-foreground">We will get back to you within 24 hours.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">{t('contact.form.name')} *</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          required
-                          className="bg-secondary border-border"
-                          placeholder="John Doe"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">{t('contact.form.email')} *</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required
-                          className="bg-secondary border-border"
-                          placeholder="john@company.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="company">{t('contact.form.company')}</Label>
-                        <Input
-                          id="company"
-                          name="company"
-                          className="bg-secondary border-border"
-                          placeholder="Company Ltd"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">{t('contact.form.phone')}</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          className="bg-secondary border-border"
-                          placeholder="+44 7XXX XXXXXX"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="interest">{t('contact.form.interest')} *</Label>
-                      <Select name="interest" required>
-                        <SelectTrigger className="bg-secondary border-border">
-                          <SelectValue placeholder="Select an option" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="private">{t('contact.form.interest.private')}</SelectItem>
-                          <SelectItem value="enterprise">{t('contact.form.interest.enterprise')}</SelectItem>
-                          <SelectItem value="bespoke">{t('contact.form.interest.bespoke')}</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="message">{t('contact.form.message')} *</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        required
-                        rows={6}
-                        className="bg-secondary border-border resize-none"
-                        placeholder="Tell us about your requirements..."
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? 'Sending...' : t('contact.form.submit')}
-                      <Send className="ml-2 w-5 h-5" />
-                    </Button>
-                  </form>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  )
+  return <main className="private-home-page min-h-screen">
+    <Navigation />
+    <section className="contact-hero px-5 pb-12 pt-36 sm:px-10 sm:pb-16 sm:pt-44 lg:px-16">
+      <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end"><div><p className="eyebrow-dark">A PRIVATE CONVERSATION</p><h1 className="mt-6 max-w-3xl font-serif text-5xl leading-[1.02] tracking-[-0.04em] text-[#242720] sm:text-6xl">Let’s define what your home actually needs.</h1><p className="mt-6 max-w-2xl text-base leading-7 text-[#65675e]">Share the property, the people who live there and the questions you want answered. We’ll prepare a considered brief—not an assumed product list.</p></div><p className="max-w-md border-l border-[#bda77d] pl-5 font-serif text-xl leading-8 text-[#625640]">No email or calendar connection is enabled. Your details stay in this page until you open an email draft.</p></div>
+    </section>
+    <section className="contact-content px-5 pb-24 sm:px-10 lg:px-16"><div className="mx-auto grid max-w-[1200px] gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+      <aside className="contact-details"><div className="contact-detail-card"><p className="eyebrow-dark">DIRECT CONTACT</p><a href={`mailto:${recipient}`} className="contact-info-link"><Mail aria-hidden="true" /><span>{recipient}</span></a><a href="tel:+447537144472" className="contact-info-link"><Phone aria-hidden="true" /><span>+44 7537 144472</span></a></div><div className="contact-detail-card"><p className="eyebrow-dark">GERMANY</p><div className="contact-info-link"><MapPin aria-hidden="true" /><span>Mainzer Landstraße 341<br />60326 Frankfurt am Main</span></div><a href="tel:+4915292618660" className="contact-info-link"><Phone aria-hidden="true" /><span>+49 1529 2618660</span></a></div><div className="contact-detail-card"><p className="eyebrow-dark">A GOOD FIRST CONVERSATION</p><p className="mt-4 text-sm leading-7 text-[#66675f]">Property location, construction stage, privacy expectations, connectivity, power and support are useful starting points. Avoid sending passwords, access codes or sensitive personal records.</p><Link href="/booking" className="contact-inline-link">Request a consultation <ArrowRight aria-hidden="true" /></Link></div></aside>
+      <div className="contact-form-card"><div className="mb-7"><p className="eyebrow-dark">ENQUIRY</p><h2 className="mt-3 font-serif text-3xl text-[#262821]">Start with a few details.</h2></div>
+        <form onSubmit={handleSubmit} className="contact-form">
+          <div className="contact-form-grid"><div className="contact-field"><Label htmlFor="contact-name">Name <span aria-hidden="true">*</span></Label><Input id="contact-name" name="name" autoComplete="name" required maxLength={160} placeholder="Your name" /></div><div className="contact-field"><Label htmlFor="contact-email">Email <span aria-hidden="true">*</span></Label><Input id="contact-email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder="you@example.com" /></div><div className="contact-field"><Label htmlFor="contact-company">Company</Label><Input id="contact-company" name="company" autoComplete="organization" maxLength={200} placeholder="Optional" /></div><div className="contact-field"><Label htmlFor="contact-phone">Phone</Label><Input id="contact-phone" name="phone" type="tel" autoComplete="tel" maxLength={60} placeholder="Optional" /></div></div>
+          <div className="contact-field"><Label htmlFor="contact-interest">Area of interest <span aria-hidden="true">*</span></Label><Select name="interest" value={interest || undefined} onValueChange={setInterest} required><SelectTrigger id="contact-interest"><SelectValue placeholder="Choose a starting point" /></SelectTrigger><SelectContent><SelectItem value="private">Private home intelligence</SelectItem><SelectItem value="enterprise">Business / enterprise</SelectItem><SelectItem value="bespoke">Other bespoke project</SelectItem></SelectContent></Select></div>
+          <div className="contact-field"><Label htmlFor="contact-message">What would you like to discuss? <span aria-hidden="true">*</span></Label><Textarea id="contact-message" name="message" value={message} onChange={(event) => setMessage(event.target.value)} required maxLength={8000} rows={7} placeholder="Your property, priorities, constraints or questions…" /></div>
+          <Button type="submit" size="lg" className="contact-submit"><span>Prepare email draft</span><Send data-icon="inline-end" /></Button>
+          {draftReady && <p className="contact-draft-status" role="status">Your email app should open with a draft for you to review and send. Nothing has been sent by this website. If it did not open, email <a href={`mailto:${recipient}`}>{recipient}</a>.</p>}
+          <p className="contact-form-disclaimer">No form data is stored or sent automatically. Choosing “Prepare email draft” opens your email app with the details you provided; you can review, edit or discard it before sending.</p>
+        </form>
+      </div>
+    </div></section>
+    <Footer />
+  </main>
 }

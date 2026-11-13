@@ -1,125 +1,24 @@
 "use client"
 
-import Link from 'next/link'
-import { useLanguage } from './language-context'
-import { MapPin, Phone, Mail, Linkedin, Twitter } from 'lucide-react'
+import Link from "next/link"
+import { Eye, Mail, MapPin, Phone } from "lucide-react"
+import { useLanguage } from "./language-context"
 
 export function Footer() {
   const { t } = useLanguage()
 
-  return (
-    <footer className="py-16 px-4 sm:px-6 lg:px-8 border-t border-border">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-10 h-10">
-                <div className="absolute inset-0 bg-primary/20 rounded-lg rotate-45" />
-                <div className="absolute inset-1 bg-gradient-to-br from-primary to-primary/50 rounded-md flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-lg">P</span>
-                </div>
-              </div>
-              <div>
-                <span className="text-foreground font-semibold text-lg">The Private</span>
-                <span className="text-primary font-bold text-lg ml-1">AI</span>
-              </div>
-            </div>
-            <p className="text-muted-foreground text-sm mb-6">
-              {t('footer.tagline')}
-            </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-4">Navigation</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  {t('nav.home')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/private" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  {t('nav.private')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/enterprise" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  {t('nav.enterprise')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  {t('nav.solutions')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* UK Office */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-4">{t('footer.address.uk')}</h4>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-muted-foreground text-sm">
-                <Phone className="w-4 h-4" />
-                <a href="tel:+447537144472" className="hover:text-foreground transition-colors">
-                  +44 7537 144472
-                </a>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground text-sm">
-                <Mail className="w-4 h-4" />
-                <a href="mailto:ThePrivateAI@protonmail.com" className="hover:text-foreground transition-colors">
-                  ThePrivateAI@protonmail.com
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Germany Office */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-4">{t('footer.address.de')}</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-muted-foreground text-sm">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                <span>
-                  Mainzer Landstraße 341<br />
-                  60326 Frankfurt am Main
-                </span>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground text-sm">
-                <Phone className="w-4 h-4" />
-                <a href="tel:+4915292618660" className="hover:text-foreground transition-colors">
-                  +49 1529 2618660
-                </a>
-              </li>
-            </ul>
-          </div>
+  return <footer className="private-home-footer border-t border-white/10 px-5 py-12 sm:px-10 sm:py-16 lg:px-16">
+    <div className="mx-auto max-w-[1280px]">
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_.8fr_1fr_1fr]">
+        <div>
+          <Link href="/" className="private-home-footer-brand" aria-label="ThePrivateAI home"><span className="private-home-footer-eye"><Eye aria-hidden="true" /></span><span><strong>ThePrivate</strong><b>AI</b></span></Link>
+          <p className="mt-4 max-w-xs text-sm leading-6 text-white/55">{t("footer.tagline")}</p>
         </div>
-
-        {/* Bottom */}
-        <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} The Private AI. {t('footer.rights')}
-          </p>
-          <div className="flex items-center gap-6">
-            <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-              Terms of Service
-            </Link>
-          </div>
-        </div>
+        <div><h2 className="footer-heading">Explore</h2><nav aria-label="Footer navigation" className="mt-4 flex flex-col items-start gap-3"><Link href="/" className="footer-link">{t("nav.home")}</Link><Link href="/private-home" className="footer-link">{t("nav.private")}</Link><Link href="/enterprise" className="footer-link">{t("nav.enterprise")}</Link><Link href="/solutions" className="footer-link">{t("nav.solutions")}</Link><Link href="/about" className="footer-link">{t("nav.about")}</Link></nav></div>
+        <div><h2 className="footer-heading">United Kingdom</h2><a href="tel:+447537144472" className="footer-contact"><Phone aria-hidden="true" />+44 7537 144472</a><a href="mailto:ThePrivateAI@protonmail.com" className="footer-contact"><Mail aria-hidden="true" />ThePrivateAI@protonmail.com</a></div>
+        <div><h2 className="footer-heading">Germany</h2><p className="footer-contact"><MapPin aria-hidden="true" /><span>Mainzer Landstraße 341<br />60326 Frankfurt am Main</span></p><a href="tel:+4915292618660" className="footer-contact"><Phone aria-hidden="true" />+49 1529 2618660</a></div>
       </div>
-    </footer>
-  )
+      <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between"><p>© {new Date().getFullYear()} ThePrivateAI. {t("footer.rights")}</p><nav aria-label="Legal links" className="flex gap-5"><Link href="/privacy" className="footer-link">Privacy overview</Link><Link href="/terms" className="footer-link">Terms</Link><Link href="/contact" className="footer-link">Contact</Link></nav></div>
+    </div>
+  </footer>
 }
