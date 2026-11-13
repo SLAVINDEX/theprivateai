@@ -1,5 +1,5 @@
-import { PrivateHomeExperience } from "@/components/private-home-experience"
+import { CenturionLanding } from "@/components/centurion-landing"
 
 export default function Home() {
-  return <PrivateHomeExperience />
+  return <CenturionLanding />
 }

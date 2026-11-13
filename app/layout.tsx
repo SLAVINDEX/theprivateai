@@ -8,32 +8,30 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   metadataBase: new URL("https://private-ai-website-analysis.v0.build"),
   title: {
-    default: "Private Home Intelligence | ThePrivateAI",
-    template: "%s | ThePrivateAI",
+    default: "Centurion Compliance | Independent Regulatory Advisory",
+    template: "%s | Centurion Compliance",
   },
-  description: "Explore a private-home concept combining local AI, considered architecture, resilient infrastructure and human-led property awareness.",
-  applicationName: "ThePrivateAI",
-  keywords: ["private AI", "private home intelligence", "local AI", "home infrastructure", "AI systems", "private networks"],
-  authors: [{ name: "ThePrivateAI" }],
+  description: "Independent regulatory compliance advisory for financial services firms, covering FCA expectations, Consumer Duty, MiFID II and cross-border SEC considerations.",
+  applicationName: "Centurion Compliance",
+  keywords: ["regulatory compliance advisory", "FCA consulting", "Consumer Duty", "MiFID II", "SEC compliance advisory", "financial services governance"],
+  authors: [{ name: "Centurion Compliance" }],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Private Home Intelligence | ThePrivateAI",
-    description: "A home that thinks. A system that protects. An environment you control.",
+    title: "Centurion Compliance | Independent Regulatory Advisory",
+    description: "Clear, practical compliance advice for financial services firms.",
     type: "website",
     url: "https://private-ai-website-analysis.v0.build",
-    images: [{ url: "/images/private-home-estate.png", alt: "Architectural concept for a private, technology-aware residence" }],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Private Home Intelligence | ThePrivateAI",
-    description: "Explore a considered private-home technology concept.",
-    images: ["/images/private-home-estate.png"],
+    card: "summary",
+    title: "Centurion Compliance | Independent Regulatory Advisory",
+    description: "Clear, practical compliance advice for financial services firms.",
   },
   robots: { index: true, follow: true },
 }
 
 export const viewport: Viewport = {
-  themeColor: "#07131c",
+  themeColor: "#070b10",
   width: "device-width",
   initialScale: 1,
 }
