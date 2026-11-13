@@ -121,18 +121,22 @@ export function PrivateHomeExperience() {
 
   return <main className={`private-home-page min-h-screen overflow-hidden ${touring ? "private-home-tour-running" : ""}`}>
     <Navigation />
-    <section className="private-home-hero relative flex min-h-[680px] items-center overflow-hidden pb-16 pt-32 sm:min-h-[760px] sm:pb-20 sm:pt-36">
-      <Image src="/images/private-home-estate.png" alt="Contemporary private residence in a landscaped setting at blue hour" fill priority sizes="100vw" className="private-home-hero-image object-cover" />
-      <div className="private-home-hero-shade absolute inset-0" /><div className="private-home-grain absolute inset-0" aria-hidden="true" />
-      <div className="relative mx-auto grid w-full max-w-[1440px] grid-cols-1 items-end gap-10 px-5 sm:px-10 lg:grid-cols-[1fr_0.68fr] lg:gap-14 lg:px-16">
+    <section className="private-home-hero relative flex min-h-[740px] items-center overflow-hidden pb-16 pt-28 sm:min-h-[800px] sm:pb-20 sm:pt-32">
+      <Image src="/images/private-home-estate.png" alt="" fill priority sizes="100vw" className="private-home-hero-image object-cover" />
+      <div className="private-home-hero-shade absolute inset-0" /><div className="private-home-grain absolute inset-0" aria-hidden="true" /><div className="private-home-hero-starfield absolute inset-0" aria-hidden="true" />
+      <div className="relative z-10 mx-auto grid w-full max-w-[1440px] grid-cols-1 items-center gap-8 px-5 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-16">
         <div className="max-w-[810px]">
-          <div className="eyebrow mb-7 flex items-center gap-3"><span className="hero-eye-origin"><EyeBrandMark /></span> THEPRIVATEAI · PRIVATE HOME INTELLIGENCE</div>
+          <div className="eyebrow mb-7 flex items-center gap-3"><span className="hero-eye-origin"><EyeBrandMark size="micro" /></span> THEPRIVATEAI · PRIVATE HOME INTELLIGENCE</div>
           <h1 className="max-w-4xl text-balance font-serif text-5xl leading-[0.99] tracking-[-0.045em] text-[#f4efe4] sm:text-6xl lg:text-[5.5rem]">A home that thinks.<br /><span className="text-[#c9b38a]">A system that protects.</span><br /><span className="text-[#f4efe4]/78">An environment you control.</span></h1>
           <p className="mt-7 max-w-2xl text-base leading-7 text-[#e3dfd4]/80 sm:text-lg sm:leading-8">Private intelligence, independent communications, considered security and powerful local computing—designed around your property, your family and your right to understand where your data goes. No single technology is assumed to work without its power, network and service dependencies.</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row"><button type="button" onClick={beginTour} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#c8b28a] px-7 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#1a1d19] transition hover:bg-[#dfc89d]">Design your private home <ArrowDown className="size-4" /></button><Link href={`/booking?notes=${encodeURIComponent("I would like to request a private home consultation about a local-first home intelligence system.")}`} className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/35 px-7 text-[10px] font-medium uppercase tracking-[0.14em] text-white transition hover:border-[#d4bd91] hover:text-[#e2cda5]">Book a private consultation</Link></div>
           <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/20 pt-5 text-[9px] uppercase tracking-[0.16em] text-white/70"><span className="flex items-center gap-2"><LockKeyhole className="size-3.5 text-[#d2ba8d]" /> Local-first, not cloud-only</span><span className="flex items-center gap-2"><Globe2 className="size-3.5 text-[#d2ba8d]" /> Designed around location</span><span className="flex items-center gap-2"><CircleDot className="size-3.5 text-[#d2ba8d]" /> People stay in control</span></div>
         </div>
-        <div className="hero-note hidden max-w-sm justify-self-end border-l border-[#c9b38a]/60 pl-5 lg:block"><p className="font-serif text-2xl leading-snug text-[#f2ecde]">Technology should feel like part of the architecture—not another thing to manage.</p><p className="mt-4 text-[9px] uppercase tracking-[0.17em] text-[#c9b38a]">A considered approach to private living</p></div>
+        <div className="hero-orbital-visual relative order-first flex flex-col items-center justify-center lg:order-none" aria-hidden="true">
+          <span className="hero-orbital-horizon" />
+          <EyeBrandMark size="hero" className="hero-orbital-eye" />
+          <div className="hero-orbital-caption"><span>01 / PRIVATE BY DESIGN</span><p>Intelligence, held within your orbit.</p></div>
+        </div>
       </div>
     </section>
 
