@@ -5,7 +5,8 @@ import Link from "next/link"
 import { useLanguage } from "./language-context"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Eye, Globe, Menu } from "lucide-react"
+import { Globe, Menu } from "lucide-react"
+import { EyeBrandMark } from "./eye-brand-mark"
 
 export function Navigation() {
   const { language, setLanguage, t } = useLanguage()
@@ -22,8 +23,8 @@ export function Navigation() {
   return <nav className="private-home-site-nav fixed left-0 right-0 top-0 z-50" aria-label="Main navigation">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="flex h-20 items-center justify-between">
       <Link href="/" className="private-home-brand group flex items-center gap-3" aria-label="ThePrivateAI home">
-        <span className="private-home-eye-mark"><Eye aria-hidden="true" /></span>
-        <span className="hidden sm:block"><span className="text-[#eee8dc] text-lg font-medium tracking-tight">ThePrivate</span><span className="ml-1 text-[#c9b38a] text-lg font-semibold">AI</span></span>
+        <span className="private-home-eye-mark"><EyeBrandMark /></span>
+        <span className="block"><span className="text-[#eee8dc] text-lg font-medium tracking-tight">ThePrivate</span><span className="ml-1 text-[#c9b38a] text-lg font-semibold">AI</span></span>
       </Link>
       <div className="hidden items-center gap-7 lg:flex">{navLinks.map((link) => <Link key={link.href} href={link.href} className="private-home-nav-link">{link.label}</Link>)}</div>
       <div className="flex items-center gap-3 sm:gap-4">

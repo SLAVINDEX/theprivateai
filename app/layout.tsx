@@ -6,7 +6,7 @@ import { LanguageProvider } from "@/components/language-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.privateai.de"),
+  metadataBase: new URL("https://private-ai-website-analysis.v0.build"),
   title: {
     default: "Private Home Intelligence | ThePrivateAI",
     template: "%s | ThePrivateAI",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Private Home Intelligence | ThePrivateAI",
     description: "A home that thinks. A system that protects. An environment you control.",
     type: "website",
-    url: "https://www.privateai.de",
+    url: "https://private-ai-website-analysis.v0.build",
     images: [{ url: "/images/private-home-estate.png", alt: "Architectural concept for a private, technology-aware residence" }],
   },
   twitter: {

@@ -710,3 +710,38 @@
   .power-checklist > div { grid-template-columns: 1.6rem 1fr; }
   .power-load-status { grid-column: 2; }
 }
+
+.private-home-eye-mark { width: 2.65rem; height: 2.65rem; background: rgba(200,178,138,.07); box-shadow: 0 0 0 4px rgba(200,178,138,.035); }
+.private-home-eye-mark svg, .private-home-footer-eye svg, .hero-eye-origin svg { display: block; width: 1.5rem; height: 1.05rem; overflow: visible; }
+.private-home-eye-mark svg { color: #e0c99a; }
+.private-home-footer-eye { background: rgba(200,178,138,.05); }
+.hero-eye-origin { width: 2rem; height: 2rem; background: rgba(200,178,138,.06); }
+
+.private-home-model-scene { overflow: hidden; isolation: isolate; background: #1d2520; }
+.private-home-model-image { z-index: 0; object-fit: cover; object-position: center 56%; transition: filter 700ms ease, transform 900ms cubic-bezier(.2,.7,.2,1); }
+.private-home-model-image-night { filter: brightness(.78) saturate(.82); }
+.private-home-model-shade { position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg,rgba(18,22,19,.72),rgba(18,22,19,.12) 58%,rgba(18,22,19,.05)),linear-gradient(0deg,rgba(18,22,19,.75),transparent 36%),linear-gradient(180deg,rgba(18,22,19,.48),transparent 26%); pointer-events: none; transition: opacity 500ms ease; }
+.private-home-model-shade-night { opacity: .9; }
+.private-home-model-heading { position: absolute; z-index: 8; top: 1.4rem; left: 1.4rem; max-width: min(60%, 25rem); pointer-events: none; }
+.private-home-model-kicker { display: inline-flex; align-items: center; gap: .5rem; color: rgba(246,242,231,.78); font-size: .48rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.private-home-model-status, .model-label-dot { width: .42rem; height: .42rem; flex: 0 0 auto; border-radius: 50%; background: #d6bd89; box-shadow: 0 0 12px rgba(214,189,137,.8); }
+.private-home-model-heading h3 { margin-top: .7rem; color: #f5f0e5; font: 400 clamp(1.25rem,2.2vw,2rem)/1.1 Georgia,serif; letter-spacing: -.025em; text-shadow: 0 1px 18px rgba(0,0,0,.3); }
+.private-home-model-heading p { margin-top: .4rem; color: rgba(246,242,231,.68); font-size: .56rem; letter-spacing: .08em; text-transform: uppercase; }
+.private-home-model-badge { position: absolute; z-index: 8; top: 1.4rem; right: 1.4rem; display: flex; flex-direction: column; align-items: flex-end; gap: .28rem; border: 1px solid rgba(240,231,211,.23); border-radius: .6rem; background: rgba(23,28,24,.54); padding: .65rem .8rem; color: rgba(246,242,231,.82); font-size: .44rem; letter-spacing: .13em; backdrop-filter: blur(12px); }
+.private-home-model-badge span:first-child { color: #dfc99a; font-weight: 600; }
+.private-home-model-marker, .private-home-model-room { position: absolute; z-index: 7; display: inline-flex; min-height: 2.1rem; align-items: center; gap: .45rem; transform: translate(-50%,-50%); border: 1px solid rgba(231,211,167,.5); border-radius: 999px; background: rgba(23,28,24,.82); padding: .44rem .68rem; color: #f5efdf; font-size: .55rem; letter-spacing: .04em; white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,.18); backdrop-filter: blur(12px); transition: background 180ms ease,border-color 180ms ease,color 180ms ease,transform 180ms ease; }
+.private-home-model-marker:hover, .private-home-model-room:hover, .private-home-model-marker-active, .private-home-model-room-active { transform: translate(-50%,-50%) scale(1.04); border-color: #f1d7a6; background: rgba(67,61,48,.92); color: #fff8e9; }
+.private-home-model-marker:focus-visible, .private-home-model-room:focus-visible { outline: 2px solid #f1d7a6; outline-offset: 3px; }
+.private-home-model-marker-dot { width: .42rem; height: .42rem; flex: 0 0 auto; border: 1px solid #f1d7a6; border-radius: 50%; background: #c5a96f; box-shadow: 0 0 10px rgba(210,186,141,.8); }
+.private-home-model-marker-active .private-home-model-marker-dot { animation: home-marker-pulse 1.8s ease-in-out infinite; }
+.private-home-model-room { border-radius: .45rem; background: rgba(25,30,25,.88); font-size: .5rem; }
+@keyframes home-marker-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(210,186,141,.55); } 50% { box-shadow: 0 0 0 6px rgba(210,186,141,0); } }
+@media (max-width: 639px) {
+  .private-home-model-heading { top: .9rem; left: .9rem; max-width: 66%; }
+  .private-home-model-heading p { max-width: 14rem; font-size: .48rem; }
+  .private-home-model-badge { top: .85rem; right: .85rem; gap: .2rem; padding: .45rem .5rem; font-size: .38rem; }
+  .private-home-model-marker { width: 2.3rem; min-height: 2.3rem; justify-content: center; padding: 0; }
+  .private-home-model-marker-label { display: none; }
+  .private-home-model-marker-dot { width: .52rem; height: .52rem; }
+  .private-home-model-room { min-height: 1.8rem; padding: .35rem .5rem; font-size: .43rem; }
+}

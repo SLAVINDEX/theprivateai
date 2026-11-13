@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Eye, Mail, MapPin, Phone } from "lucide-react"
+import { Mail, MapPin, Phone } from "lucide-react"
+import { EyeBrandMark } from "./eye-brand-mark"
 import { useLanguage } from "./language-context"
 
 export function Footer() {
@@ -11,7 +12,7 @@ export function Footer() {
     <div className="mx-auto max-w-[1280px]">
       <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_.8fr_1fr_1fr]">
         <div>
-          <Link href="/" className="private-home-footer-brand" aria-label="ThePrivateAI home"><span className="private-home-footer-eye"><Eye aria-hidden="true" /></span><span><strong>ThePrivate</strong><b>AI</b></span></Link>
+          <Link href="/" className="private-home-footer-brand" aria-label="ThePrivateAI home"><span className="private-home-footer-eye"><EyeBrandMark /></span><span><strong>ThePrivate</strong><b>AI</b></span></Link>
           <p className="mt-4 max-w-xs text-sm leading-6 text-white/55">{t("footer.tagline")}</p>
         </div>
         <div><h2 className="footer-heading">Explore</h2><nav aria-label="Footer navigation" className="mt-4 flex flex-col items-start gap-3"><Link href="/" className="footer-link">{t("nav.home")}</Link><Link href="/private-home" className="footer-link">{t("nav.private")}</Link><Link href="/enterprise" className="footer-link">{t("nav.enterprise")}</Link><Link href="/solutions" className="footer-link">{t("nav.solutions")}</Link><Link href="/about" className="footer-link">{t("nav.about")}</Link></nav></div>
