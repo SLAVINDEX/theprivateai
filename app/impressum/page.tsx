@@ -1,10 +1,5 @@
-import { CenturionInfoPage } from "@/components/centurion-info-page"
-import { getLocaleMetadata } from "@/lib/locale-metadata"
-
-export async function generateMetadata() {
-  return getLocaleMetadata("/impressum", true)
-}
+import { redirectToLegal } from "@/lib/redirect-to-legal"
 
 export default function ImpressumPage() {
-  return <CenturionInfoPage page="impressum" />
+  return redirectToLegal("impressum")
 }

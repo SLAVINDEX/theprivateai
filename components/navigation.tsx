@@ -2,13 +2,24 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { useLanguage } from "@/components/language-context"
 import { BrandLogo } from "@/components/brand-logo"
 
 export function Navigation() {
   const { language, setLanguage, messages } = useLanguage()
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
+
+  function switchLanguage() {
+    const nextLanguage = language === "en" ? "de" : "en"
+    setLanguage(nextLanguage)
+    if (pathname === "/legal" || pathname === "/rechtliches") {
+      const nextPath = nextLanguage === "de" ? "/rechtliches" : "/legal"
+      window.location.assign(`${nextPath}${window.location.search}`)
+    }
+  }
   const t = messages.navigation
   const links = [
     ["/services", t.services], ["/who-we-help", t.clients], ["/jurisdictions", t.jurisdictions], ["/about", t.about], ["/insights", t.insights], ["/contact", t.contact],
@@ -19,7 +30,7 @@ export function Navigation() {
       <BrandLogo />
       <nav className="cc-desktop-nav" aria-label={language === "de" ? "Hauptnavigation" : "Main navigation"}>{links.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}</nav>
       <div className="cc-header-actions">
-        <button type="button" className="cc-language" onClick={() => setLanguage(language === "en" ? "de" : "en")} aria-label={t.language}><span className={language === "en" ? "is-current" : ""}>EN</span><span aria-hidden="true">/</span><span className={language === "de" ? "is-current" : ""}>DE</span></button>
+        <button type="button" className="cc-language" onClick={switchLanguage} aria-label={t.language}><span className={language === "en" ? "is-current" : ""}>EN</span><span aria-hidden="true">/</span><span className={language === "de" ? "is-current" : ""}>DE</span></button>
         <Link href="/contact" className="cc-nav-cta">{t.consult}</Link>
         <button type="button" className="cc-menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? t.close : t.menu} aria-expanded={open} aria-controls="cc-mobile-navigation">{open ? <X /> : <Menu />}</button>
       </div>

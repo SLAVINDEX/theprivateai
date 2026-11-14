@@ -17,7 +17,7 @@ export function CenturionHome() {
     <section className="cc-hero">
       <div className="cc-container cc-hero-grid">
         <div className="cc-hero-copy"><p className="cc-eyebrow"><span className="cc-eyebrow-rule" />{t.eyebrow}</p><h1>{t.title}</h1><p className="cc-hero-lead">{t.intro}</p>
-          <div className="cc-actions"><Link className="cc-button cc-button-green" href="/contact">{t.book}<ArrowUpRight aria-hidden="true" /></Link><a className="cc-button cc-button-outline" href={getWhatsAppHref(language)} target="_blank" rel="noopener noreferrer">{t.whatsapp}<ArrowUpRight aria-hidden="true" /></a></div>
+          <div className="cc-actions"><Link className="cc-button cc-button-green" href="/contact">{t.book}<ArrowUpRight aria-hidden="true" /></Link><a className="cc-button cc-button-outline" href={getWhatsAppHref()} target="_blank" rel="noopener noreferrer">{t.whatsapp}<ArrowUpRight aria-hidden="true" /></a></div>
           <div className="cc-hero-proof"><span><Check aria-hidden="true" />{t.heroProof[0]}</span><span><Check aria-hidden="true" />{t.heroProof[1]}</span></div>
         </div>
         <figure className="cc-hero-image"><Image src="/images/centurion-colonnade.png" alt={t.imageAlt} fill priority sizes="(max-width: 900px) 100vw, 48vw" /><div className="cc-image-caption"><span>{t.image}</span><span>{t.photo}</span></div><div className="cc-hero-mark"><HelmetMark /></div></figure>

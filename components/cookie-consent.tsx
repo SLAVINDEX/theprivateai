@@ -18,6 +18,7 @@ export function CookieConsent() {
 
   function saveChoice(choice: "accepted" | "rejected") {
     document.cookie = `cc-cookie-choice=${choice}; Max-Age=31536000; Path=/; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`
+    window.dispatchEvent(new Event("cc-cookie-choice-updated"))
     setVisible(false)
   }
 

@@ -6,11 +6,13 @@ import { ArrowUpRight, MapPin } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { useLanguage } from "@/components/language-context"
-import { getWhatsAppHref, siteConfig } from "@/site.config"
+import { contactDetails, getLegalRoute, getWhatsAppHref, siteConfig } from "@/site.config"
 
 export function CenturionContact() {
   const { language, messages } = useLanguage()
   const t = messages.contact
+  const details = contactDetails[language]
+  const legalPath = getLegalRoute(language)
   const [submitted, setSubmitted] = useState(false)
   const [selectedService, setSelectedService] = useState("")
 
@@ -61,15 +63,14 @@ export function CenturionContact() {
       <section className="cc-section">
         <div className="cc-container cc-contact-layout">
           <aside className="cc-contact-aside">
-            <div className="cc-location-note"><MapPin aria-hidden="true" /><p>{t.intro}</p></div>
+            <div className="cc-location-note"><MapPin aria-hidden="true" /><p>{details.address}</p></div>
             <p><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
-            <p><a href={`tel:${siteConfig.contactPhone.replaceAll(" ", "")}`}>{siteConfig.contactPhone}</a></p>
-            <p><a href={`tel:${siteConfig.ukContactPhone.replaceAll(" ", "")}`}>{siteConfig.ukContactPhone} (UK)</a></p>
-            <a className="cc-button cc-button-green" href={getWhatsAppHref(language)} target="_blank" rel="noopener noreferrer">
+            <p><a href={`tel:${details.phone.replaceAll(" ", "")}`}>{details.phone}</a></p>
+            <a className="cc-button cc-button-green" href={getWhatsAppHref()} target="_blank" rel="noopener noreferrer">
               {t.whatsapp}<ArrowUpRight aria-hidden="true" />
             </a>
             <p>{t.note}</p>
-            <Link href="/privacy" className="cc-text-link">{t.legal}</Link>
+            <Link href={`${legalPath}?tab=privacy`} className="cc-text-link">{t.legal}</Link>
           </aside>
           <form className="cc-contact-form" onSubmit={handleSubmit} onInvalid={handleInvalid} onInput={handleInput}>
             <div className="cc-form-grid">
