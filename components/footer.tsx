@@ -6,7 +6,7 @@ import { useLanguage } from "@/components/language-context"
 import { siteConfig } from "@/site.config"
 
 export function Footer() {
-  const { messages } = useLanguage()
+  const { language, messages } = useLanguage()
   const t = messages.footer
 
   return <footer className="cc-footer">
@@ -16,6 +16,6 @@ export function Footer() {
       <div><h2>{t.contact}</h2><p>{t.location}</p><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><a href={`tel:${siteConfig.contactPhone.replaceAll(" ", "")}`}>{siteConfig.contactPhone}</a><a href={`tel:${siteConfig.ukContactPhone.replaceAll(" ", "")}`}>{siteConfig.ukContactPhone} (UK)</a><Link href="/contact">{t.private}</Link></div>
       <div><h2>{t.legal}</h2><Link href="/impressum">{t.impressum}</Link><Link href="/privacy">{t.privacy}</Link><Link href="/terms">{t.disclaimerLink}</Link><button className="cc-footer-settings" type="button" onClick={() => window.dispatchEvent(new Event("cc-open-cookie-settings"))}>{t.cookie}</button></div>
     </div>
-    <div className="cc-footer-bottom"><p>© {new Date().getFullYear()} Centurion Compliance, Wiesbaden · {t.rights}</p><p>{t.disclaimer}</p></div>
+    <div className="cc-footer-bottom"><p>© {new Date().getFullYear()} Centurion Compliance, {language === "de" ? "Wiesbaden" : "St Albans"} · {t.rights}</p><p>{t.disclaimer}</p></div>
   </footer>
 }
