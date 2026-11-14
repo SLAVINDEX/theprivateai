@@ -1,104 +1,29 @@
 "use client"
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useLanguage } from './language-context'
-import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Menu, Globe, X } from 'lucide-react'
+import Link from "next/link"
+import { useState } from "react"
+import { Menu, X } from "lucide-react"
+import { useLanguage } from "@/components/language-context"
+import { BrandLogo } from "@/components/brand-logo"
 
 export function Navigation() {
-  const { language, setLanguage, t } = useLanguage()
-  const [isOpen, setIsOpen] = useState(false)
-
-  const navLinks = [
-    { href: '/', label: t('nav.home') },
-    { href: '/private', label: t('nav.private') },
-    { href: '/enterprise', label: t('nav.enterprise') },
-    { href: '/solutions', label: t('nav.solutions') },
-    { href: '/about', label: t('nav.about') },
-    { href: '/contact', label: t('nav.contact') },
+  const { language, setLanguage, messages } = useLanguage()
+  const [open, setOpen] = useState(false)
+  const t = messages.navigation
+  const links = [
+    ["/services", t.services], ["/who-we-help", t.clients], ["/jurisdictions", t.jurisdictions], ["/about", t.about], ["/insights", t.insights], ["/contact", t.contact],
   ]
 
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-card">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10">
-              <div className="absolute inset-0 bg-primary/20 rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-500" />
-              <div className="absolute inset-1 bg-gradient-to-br from-primary to-primary/50 rounded-md flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">P</span>
-              </div>
-            </div>
-            <div className="hidden sm:block">
-              <span className="text-foreground font-semibold text-lg tracking-tight">The Private</span>
-              <span className="text-primary font-bold text-lg ml-1">AI</span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Actions */}
-          <div className="flex items-center gap-4">
-            {/* Language Toggle */}
-            <button
-              onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-secondary transition-colors"
-            >
-              <Globe className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium">{language === 'en' ? 'EN' : 'DE'}</span>
-            </button>
-
-            {/* Book Consultation CTA */}
-            <Link href="/booking" className="hidden sm:block">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                {t('nav.book')}
-              </Button>
-            </Link>
-
-            {/* Mobile Menu */}
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon">
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-background border-border">
-                <div className="flex flex-col gap-8 mt-8">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-foreground hover:text-primary transition-colors text-lg font-medium"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                  <Link href="/booking" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-primary text-primary-foreground">
-                      {t('nav.book')}
-                    </Button>
-                  </Link>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
+  return <header className="cc-header">
+    <div className="cc-header-inner">
+      <BrandLogo />
+      <nav className="cc-desktop-nav" aria-label={language === "de" ? "Hauptnavigation" : "Main navigation"}>{links.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}</nav>
+      <div className="cc-header-actions">
+        <button type="button" className="cc-language" onClick={() => setLanguage(language === "en" ? "de" : "en")} aria-label={t.language}><span className={language === "en" ? "is-current" : ""}>EN</span><span aria-hidden="true">/</span><span className={language === "de" ? "is-current" : ""}>DE</span></button>
+        <Link href="/contact" className="cc-nav-cta">{t.consult}</Link>
+        <button type="button" className="cc-menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? t.close : t.menu} aria-expanded={open} aria-controls="cc-mobile-navigation">{open ? <X /> : <Menu />}</button>
       </div>
-    </nav>
-  )
+    </div>
+    {open && <nav id="cc-mobile-navigation" className="cc-mobile-nav" aria-label={language === "de" ? "Hauptnavigation" : "Main navigation"}>{links.map(([href, label]) => <Link key={href} href={href} onClick={() => setOpen(false)}>{label}</Link>)}<Link className="cc-mobile-cta" href="/contact" onClick={() => setOpen(false)}>{t.consult}</Link></nav>}
+  </header>
 }

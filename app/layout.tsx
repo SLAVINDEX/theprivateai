@@ -1,45 +1,38 @@
-import React from "react"
-import type { Metadata, Viewport } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
-import { LanguageProvider } from '@/components/language-context'
+import type { Metadata, Viewport } from "next"
+import { Cormorant_Garamond, Inter } from "next/font/google"
+import { LanguageProvider } from "@/components/language-context"
+import { CookieConsent } from "@/components/cookie-consent"
+import { WhatsAppFloat } from "@/components/whatsapp-float"
+import { siteConfig } from "@/site.config"
+import "./globals.css"
 
-const _inter = Inter({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-cormorant", weight: ["400", "500", "600"] })
 
 export const metadata: Metadata = {
-  title: 'The Private AI | Premium Offline AI Servers & Consultancy',
-  description: 'Enterprise-grade offline AI infrastructure. Air-gapped LLM systems for regulated environments, HNW individuals, and businesses. On-prem AI solutions from £15,000 to £65,000.',
-  keywords: ['private AI', 'offline AI servers', 'enterprise AI', 'air-gapped AI', 'on-premise AI', 'A100 GPU', 'LLM infrastructure'],
-  authors: [{ name: 'The Private AI' }],
+  metadataBase: new URL(siteConfig.url),
+  title: { default: "Centurion Compliance | Regulatory confidence for financial firms", template: "%s | Centurion Compliance" },
+  description: "FCA · BaFin · SEC — regulatory strategy, assurance and implementation across London, Frankfurt and New York. Nearly a decade of experience across UK, German/EU and US regulation.",
+  applicationName: siteConfig.name,
+  icons: { icon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-DTkwkuNFNGHLDNVBoARi6XArdTL2fo.png" },
+  keywords: ["regulatory compliance consulting", "FCA", "BaFin", "Consumer Duty", "MiFID II", "MiCA", "financial services compliance", "Wiesbaden"],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: 'The Private AI | Premium Offline AI Infrastructure',
-    description: 'Take control of your AI. Enterprise-grade offline servers from £15,000.',
-    type: 'website',
+    title: "Centurion Compliance | Regulatory confidence for financial firms",
+    description: "FCA, BaFin and SEC regulatory advice across London, Frankfurt and New York.",
+    type: "website",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    images: [{ url: "/centurion-social.png", width: 1200, height: 630, alt: "Centurion Compliance — regulatory confidence for financial firms." }],
   },
-    generator: 'v0.app'
+  twitter: { card: "summary_large_image", title: "Centurion Compliance", description: "FCA · BaFin · SEC across London, Frankfurt and New York.", images: ["/centurion-social.png"] },
+  robots: { index: true, follow: true },
 }
 
-export const viewport: Viewport = {
-  themeColor: '#0a0a0f',
-  width: 'device-width',
-  initialScale: 1,
-}
+export const viewport: Viewport = { themeColor: "#FAF8F3", width: "device-width", initialScale: 1 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="en">
-      <body className="font-sans antialiased">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
-        <Analytics />
-      </body>
-    </html>
-  )
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body className={`${inter.variable} ${cormorant.variable} antialiased`}><LanguageProvider>{children}<WhatsAppFloat /><CookieConsent /></LanguageProvider></body></html>
 }
