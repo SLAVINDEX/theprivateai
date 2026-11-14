@@ -2,27 +2,38 @@ export const siteConfig = {
   name: "Centurion Compliance",
   description: "Independent regulatory strategy, assurance and implementation across London, Frankfurt and New York.",
   url: "https://www.centurioncompliance.com",
-  location: "Wiesbaden, Hessen — advising clients in London, Frankfurt and New York.",
   whatsappNumber: "4915292618660",
-  whatsappMessage: "Hello, I'd like to discuss compliance support from Centurion Compliance.",
   contactEmail: "sascha.wittig@icloud.com",
   contactPhone: "+49 152 92618660",
-  ukContactPhone: "+44 7537 144472",
+  ukContactPhone: "+447537144472",
   legal: {
-    ownerName: "TODO: legal owner name",
-    businessName: "TODO: registered business name",
-    street: "TODO: registered street address",
-    postcode: "TODO: registered postcode",
+    ownerName: "Sascha Wittig",
+    businessName: "Centurion Compliance (Einzelunternehmer)",
+    street: "Schwarzgasse 9",
+    postcode: "65191",
     city: "Wiesbaden",
-    email: "TODO: legal contact email",
-    phone: "TODO: legal contact phone",
-    vatId: "TODO: VAT identification number, if applicable",
+    email: "sascha.wittig@icloud.com",
+    phone: "+49 152 92618660",
   },
 } as const
 
-export function getWhatsAppHref(language: "en" | "de") {
-  const message = language === "de"
-    ? "Guten Tag, ich möchte die Compliance-Beratung von Centurion Compliance besprechen."
-    : siteConfig.whatsappMessage
-  return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`
+export const contactDetails = {
+  en: {
+    address: "5d High Street, St Albans AL3 4ED",
+    phone: "+447537144472",
+    location: "Based in St Albans, Hertfordshire; advising clients in London, Frankfurt and New York.",
+  },
+  de: {
+    address: "Schwarzgasse 9, 65191 Wiesbaden, Deutschland",
+    phone: "+49 152 92618660",
+    location: "Mit Sitz in Wiesbaden, Hessen; Beratung in London, Frankfurt und New York.",
+  },
+} as const
+
+export function getWhatsAppHref() {
+  return `https://wa.me/${siteConfig.whatsappNumber}`
+}
+
+export function getLegalRoute(language: "en" | "de") {
+  return language === "de" ? "/rechtliches" : "/legal"
 }

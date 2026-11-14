@@ -70,6 +70,9 @@ export interface LocaleMessages {
     impressum: string
     privacy: string
     disclaimerLink: string
+    ukLegal: string
+    cookiePolicy: string
+    regulatoryDisclaimer: string
     cookie: string
     description: string
     location: string
