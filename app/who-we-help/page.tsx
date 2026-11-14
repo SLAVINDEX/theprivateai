@@ -1,6 +1,9 @@
 import { CenturionInfoPage } from "@/components/centurion-info-page"
+import { getLocaleMetadata } from "@/lib/locale-metadata"
 
-export const metadata = { title: "Who we help", description: "Compliance support for fintechs, payment firms, investment businesses, wealth managers, crypto firms, banks and insurers." }
+export async function generateMetadata() {
+  return getLocaleMetadata("/who-we-help")
+}
 
 export default function ClientsPage() {
   return <CenturionInfoPage page="clients" />

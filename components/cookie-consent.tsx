@@ -3,15 +3,10 @@
 import { useEffect, useState } from "react"
 import { useLanguage } from "@/components/language-context"
 
-const copy = {
-  en: { title: "Your privacy, by design.", body: "This site uses only essential technologies. No analytics or advertising trackers are active. You can record your preference below.", accept: "Accept optional cookies", reject: "Reject optional cookies", close: "Dismiss cookie notice" },
-  de: { title: "Datenschutz von Anfang an.", body: "Diese Website verwendet nur technisch notwendige Technologien. Analyse- oder Werbe-Tracker sind nicht aktiv. Sie können Ihre Auswahl unten speichern.", accept: "Optionale Cookies akzeptieren", reject: "Optionale Cookies ablehnen", close: "Cookie-Hinweis schließen" },
-}
-
 export function CookieConsent() {
-  const { language } = useLanguage()
+  const { messages } = useLanguage()
   const [visible, setVisible] = useState(false)
-  const t = copy[language]
+  const t = messages.cookie
 
   useEffect(() => {
     const hasChoice = document.cookie.split("; ").some((cookie) => cookie.startsWith("cc-cookie-choice="))
@@ -28,7 +23,7 @@ export function CookieConsent() {
 
   if (!visible) return null
 
-  return <aside id="cookie-settings" className="cc-cookie-banner" aria-label={language === "de" ? "Cookie-Einstellungen" : "Cookie settings"}>
+  return <aside id="cookie-settings" className="cc-cookie-banner" aria-label={t.label}>
     <button className="cc-cookie-close" type="button" onClick={() => saveChoice("rejected")} aria-label={t.close}>×</button>
     <div><p className="cc-eyebrow">CENTURION COMPLIANCE</p><h2>{t.title}</h2><p>{t.body}</p></div>
     <div className="cc-cookie-actions"><button type="button" onClick={() => saveChoice("accepted")}>{t.accept}</button><button type="button" onClick={() => saveChoice("rejected")}>{t.reject}</button></div>

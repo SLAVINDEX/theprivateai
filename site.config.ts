@@ -7,6 +7,7 @@ export const siteConfig = {
   whatsappMessage: "Hello, I'd like to discuss compliance support from Centurion Compliance.",
   contactEmail: "sascha.wittig@icloud.com",
   contactPhone: "+49 152 92618660",
+  ukContactPhone: "+44 7537 144472",
   legal: {
     ownerName: "TODO: legal owner name",
     businessName: "TODO: registered business name",
@@ -19,4 +20,9 @@ export const siteConfig = {
   },
 } as const
 
-export const whatsappHref = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`
+export function getWhatsAppHref(language: "en" | "de") {
+  const message = language === "de"
+    ? "Guten Tag, ich möchte die Compliance-Beratung von Centurion Compliance besprechen."
+    : siteConfig.whatsappMessage
+  return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`
+}

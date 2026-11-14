@@ -1,6 +1,9 @@
 import { CenturionInfoPage } from "@/components/centurion-info-page"
+import { getLocaleMetadata } from "@/lib/locale-metadata"
 
-export const metadata = { title: "Insights", description: "Editorial notes on regulatory change, governance and implementation for financial services firms." }
+export async function generateMetadata() {
+  return getLocaleMetadata("/insights")
+}
 
 export default function InsightsPage() {
   return <CenturionInfoPage page="insights" />

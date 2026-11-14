@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: { default: "Centurion Compliance | Regulatory confidence for financial firms", template: "%s | Centurion Compliance" },
   description: "FCA · BaFin · SEC — regulatory strategy, assurance and implementation across London, Frankfurt and New York. Nearly a decade of experience across UK, German/EU and US regulation.",
   applicationName: siteConfig.name,
+  icons: { icon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-DTkwkuNFNGHLDNVBoARi6XArdTL2fo.png" },
   keywords: ["regulatory compliance consulting", "FCA", "BaFin", "Consumer Duty", "MiFID II", "MiCA", "financial services compliance", "Wiesbaden"],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,

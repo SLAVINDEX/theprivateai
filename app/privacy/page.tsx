@@ -1,6 +1,9 @@
 import { CenturionInfoPage } from "@/components/centurion-info-page"
+import { getLocaleMetadata } from "@/lib/locale-metadata"
 
-export const metadata = { title: "Privacy policy", description: "Privacy information for the Centurion Compliance website." }
+export async function generateMetadata() {
+  return getLocaleMetadata("/privacy")
+}
 
 export default function PrivacyPage() {
   return <CenturionInfoPage page="privacy" />

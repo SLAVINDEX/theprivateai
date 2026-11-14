@@ -1,6 +1,9 @@
 import { CenturionInfoPage } from "@/components/centurion-info-page"
+import { getLocaleMetadata } from "@/lib/locale-metadata"
 
-export const metadata = { title: "Impressum", robots: { index: false, follow: true } }
+export async function generateMetadata() {
+  return getLocaleMetadata("/impressum", true)
+}
 
 export default function ImpressumPage() {
   return <CenturionInfoPage page="impressum" />

@@ -1,6 +1,9 @@
 import { CenturionContact } from "@/components/centurion-contact"
+import { getLocaleMetadata } from "@/lib/locale-metadata"
 
-export const metadata = { title: "Contact", description: "Contact Centurion Compliance in Wiesbaden, Hessen for regulatory support across London, Frankfurt and New York." }
+export async function generateMetadata() {
+  return getLocaleMetadata("/contact")
+}
 
 export default function ContactPage() {
   return <CenturionContact />

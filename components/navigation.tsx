@@ -6,15 +6,10 @@ import { Menu, X } from "lucide-react"
 import { useLanguage } from "@/components/language-context"
 import { BrandLogo } from "@/components/brand-logo"
 
-const labels = {
-  en: { services: "Services", clients: "Who we help", jurisdictions: "Jurisdictions", about: "About", insights: "Insights", contact: "Contact", consult: "Book a consultation", menu: "Open navigation", close: "Close navigation", language: "Switch language to German" },
-  de: { services: "Leistungen", clients: "Für wen wir arbeiten", jurisdictions: "Jurisdiktionen", about: "Über uns", insights: "Einblicke", contact: "Kontakt", consult: "Beratung anfragen", menu: "Navigation öffnen", close: "Navigation schließen", language: "Sprache auf Englisch wechseln" },
-}
-
 export function Navigation() {
-  const { language, setLanguage } = useLanguage()
+  const { language, setLanguage, messages } = useLanguage()
   const [open, setOpen] = useState(false)
-  const t = labels[language]
+  const t = messages.navigation
   const links = [
     ["/services", t.services], ["/who-we-help", t.clients], ["/jurisdictions", t.jurisdictions], ["/about", t.about], ["/insights", t.insights], ["/contact", t.contact],
   ]

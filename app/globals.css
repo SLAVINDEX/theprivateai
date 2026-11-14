@@ -1012,7 +1012,7 @@
 .cc-header { position: absolute; z-index: 30; top: 0; right: 0; left: 0; border-bottom: 1px solid rgba(15, 61, 46, .11); background: rgba(250, 248, 243, .95); backdrop-filter: blur(12px); }
 .cc-header-inner { display: flex; width: min(1440px, calc(100% - 64px)); height: 88px; align-items: center; justify-content: space-between; gap: 1.5rem; margin: 0 auto; }
 .cc-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .75rem; color: var(--cc-green); text-decoration: none; }
-.cc-brand-mark { width: 46px; height: 46px; }
+.cc-brand-mark { width: 46px; height: 55px; object-fit: contain; background: #faf8f3; }
 .cc-brand-type { display: flex; flex-direction: column; gap: 3px; }
 .cc-brand-type > span { font-family: var(--font-cormorant), Georgia, serif; font-size: 1.36rem; font-weight: 600; letter-spacing: .14em; line-height: 1; }
 .cc-brand-type small { color: var(--cc-sage); font-size: .52rem; font-weight: 600; letter-spacing: .34em; }
@@ -1143,6 +1143,12 @@
 .cc-info-card-details { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.7rem; margin: 1.6rem 0 0 2.8rem; }
 .cc-info-card-details h3 { color: #73592f; font-size: .6rem; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
 .cc-info-card-details p { margin-top: .55rem; color: var(--cc-muted); font-size: .73rem; line-height: 1.75; }
+.cc-bespoke-cta { margin-top: clamp(3rem, 6vw, 5rem); padding: clamp(1.5rem, 4vw, 3rem); background: #f1eee6; }
+.cc-bespoke-cta h2 { max-width: 720px; margin: .7rem 0 1rem; color: var(--cc-green); font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 500; line-height: 1.12; }
+.cc-bespoke-cta > p:not(.cc-eyebrow) { max-width: 850px; color: var(--cc-muted); font-size: .9rem; line-height: 1.8; }
+.cc-bespoke-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+.cc-button-outline { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; border: 1px solid var(--cc-green); color: var(--cc-green); background: transparent; }
+.cc-button-outline:hover { color: var(--cc-ivory); background: var(--cc-green); }
 .cc-legal-note { margin: 1.6rem auto; color: #6b716a; font-size: .68rem; line-height: 1.8; }
 .cc-info-card-list + .cc-legal-note { margin: 1.6rem 0; }
 .cc-client-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2rem; border-top: 1px solid var(--cc-line); }
@@ -1211,7 +1217,7 @@
   .cc-desktop-nav a { font-size: .63rem; }
   .cc-nav-cta { padding-inline: .75rem; font-size: .6rem; }
   .cc-brand-type > span { font-size: 1.2rem; }
-  .cc-brand-mark { width: 40px; height: 40px; }
+  .cc-brand-mark { width: 40px; height: 48px; }
   .cc-info-card-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 850px) {
@@ -1240,7 +1246,7 @@
   .cc-container { width: calc(100% - 36px); }
   .cc-header-inner { width: calc(100% - 32px); height: 70px; }
   .cc-brand { gap: .5rem; }
-  .cc-brand-mark { width: 35px; height: 35px; }
+  .cc-brand-mark { width: 35px; height: 42px; }
   .cc-brand-type > span { font-size: 1.08rem; letter-spacing: .1em; }
   .cc-brand-type small { font-size: .45rem; letter-spacing: .26em; }
   .cc-header-actions { gap: .8rem; }
