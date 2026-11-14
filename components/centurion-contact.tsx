@@ -89,7 +89,7 @@ export function CenturionContact() {
       <section className="cc-final-cta">
         <div className="cc-container cc-final-inner">
           <div><p className="cc-eyebrow">CENTURION COMPLIANCE</p><h2>{language === "de" ? "Vertraulich. Klar. Praxisnah." : "Discreet. Clear. Practical."}</h2></div>
-          <span className="cc-contact-city">{language === "de" ? "Wiesbaden · Hessen · Deutschland" : "Wiesbaden · Hessen · Germany"}</span>
+          <span className="cc-contact-city">{language === "de" ? "Wiesbaden · Hessen · Deutschland" : "St Albans · Hertfordshire · England"}</span>
         </div>
       </section>
       <Footer />

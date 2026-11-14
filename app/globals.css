@@ -1033,10 +1033,11 @@
 .cc-menu-toggle, .cc-mobile-nav { display: none; }
 .cc-hero { position: relative; display: flex; min-height: 760px; align-items: center; padding: 132px 0 100px; }
 .cc-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, .9fr); align-items: center; gap: clamp(3rem, 7vw, 7rem); }
-.cc-hero-copy { max-width: 640px; padding-block: 2rem; }
+.cc-hero-copy { min-width: 0; max-width: 640px; padding-block: 2rem; }
 .cc-eyebrow { display: flex; align-items: center; gap: .72rem; color: #73592f; font-size: .62rem; font-weight: 600; letter-spacing: .18em; line-height: 1.6; text-transform: uppercase; }
 .cc-eyebrow-rule { width: 2.1rem; height: 1px; flex: 0 0 auto; background: var(--cc-brass); }
-.cc-hero h1, .cc-page-hero h1 { max-width: 750px; margin-top: 1.55rem; color: var(--cc-green); font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(3.5rem, 6.3vw, 6.5rem); font-weight: 500; letter-spacing: -.045em; line-height: .98; }
+.cc-hero h1, .cc-page-hero h1 { max-width: 750px; margin-top: 1.55rem; color: var(--cc-green); font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(3.5rem, 6.3vw, 6.5rem); font-weight: 500; letter-spacing: -.045em; line-height: .98; hyphens: auto; overflow-wrap: break-word; }
+html[lang="de"] .cc-hero h1 { font-size: clamp(3.25rem, 4.4vw, 4.7rem); }
 .cc-hero-lead { max-width: 560px; margin-top: 1.5rem; color: #46534a; font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(1.35rem, 2vw, 1.7rem); line-height: 1.38; }
 .cc-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.2rem; }
 .cc-button { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: .75rem; border: 1px solid transparent; padding: .75rem 1.2rem; font-size: .7rem; font-weight: 600; letter-spacing: .035em; text-decoration: none; transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease; }
@@ -1254,6 +1255,7 @@
   .cc-hero-grid { gap: 2rem; }
   .cc-eyebrow { font-size: .52rem; letter-spacing: .14em; }
   .cc-hero h1 { margin-top: 1.25rem; font-size: clamp(3.1rem, 13vw, 4.7rem); }
+  html[lang="de"] .cc-hero h1 { font-size: clamp(2.7rem, 10vw, 3.6rem); }
   .cc-hero-lead { font-size: 1.28rem; }
   .cc-actions { align-items: stretch; flex-direction: column; }
   .cc-button { width: 100%; }
